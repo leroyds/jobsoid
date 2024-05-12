@@ -1,6 +1,14 @@
 .listing-container{
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
     padding: 40px 0;
+
+    &__search{
+        width: 100%;
+    }
+
+    &__listing{
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+        padding: 40px 0;
+    }
 }
