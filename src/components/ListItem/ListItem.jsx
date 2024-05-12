@@ -1,5 +1,5 @@
 import './list-item.scss'
-import { Card, Chip, Typography } from "@mui/material";
+import { Button, Card, Chip, Link, Typography } from "@mui/material";
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
@@ -26,7 +26,12 @@ const ListItem = ({data}) => {
                         <Chip label={data.type}/>
                 </div>
             </div>
-            <div></div>
+            <div className='btn-section'>
+                <a className='apply-btn' href={data.applyUrl}  target='_blank'>Apply</a>
+                <Link href="/k" className='view-link'>
+                    View
+                </Link>
+            </div>
         </div>
     );
 }

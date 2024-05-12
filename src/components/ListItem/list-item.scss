@@ -1,4 +1,8 @@
 .list-item-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     h6{
         text-align: left;
     }
@@ -10,6 +14,23 @@
         span{
             display: flex;
             align-items: center;
+        }
+    }
+
+    .btn-section{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        a{
+            text-decoration: none;
+            &.apply-btn{
+                padding: 10px 20px;
+                border: 1px solid blueviolet;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
     }
 }
