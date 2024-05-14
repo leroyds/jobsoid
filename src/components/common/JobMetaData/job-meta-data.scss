@@ -1,0 +1,14 @@
+.job-meta-data{
+    text-align: left;
+
+    .meta-data{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    
+        span{
+            display: flex;
+            align-items: center;
+        }
+    }
+}
