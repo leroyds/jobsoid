@@ -12,11 +12,19 @@
     }
 
     &__job-openings{
-        display: flex;
         width: 25%;
         padding: 20px;
         background-color: #F0F0F0;
         border: 0.5px solid gray;
-        height: fit-content
+        height: fit-content;
+        
+        &__jobs{
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 40px;
+
+        }
     }
 }

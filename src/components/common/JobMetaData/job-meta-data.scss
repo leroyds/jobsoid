@@ -5,10 +5,16 @@
         display: flex;
         gap: 10px;
         align-items: center;
+        flex-wrap: wrap;
     
         span{
             display: flex;
             align-items: center;
         }
+    }
+
+    &__link{
+        text-decoration: none;
+        color: inherit;
     }
 }

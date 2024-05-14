@@ -40,7 +40,7 @@ const Details = () => {
                         <div className='details__bottom'>
                             <div className='details__description' dangerouslySetInnerHTML={{__html: details.description}}>
                             </div>
-                            <JobOpenings className='details__job-openings' departmentId={details.department.id}/>
+                            <JobOpenings departmentId={details.department.id}/>
                         </div>
                     </Container>
                     :
