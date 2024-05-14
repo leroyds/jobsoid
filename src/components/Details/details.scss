@@ -2,14 +2,21 @@
 
     &__bottom{
         display: flex;
+        justify-content: space-between;
+        gap: 20px;
     }
 
     &__description{
         text-align: left;
-        width: calc(70% - 12px);
+        width: calc(75% - 20px);
     }
 
-    &__other-jobs{
+    &__job-openings{
         display: flex;
+        width: 25%;
+        padding: 20px;
+        background-color: #F0F0F0;
+        border: 0.5px solid gray;
+        height: fit-content
     }
 }
