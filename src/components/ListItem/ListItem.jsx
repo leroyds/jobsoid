@@ -1,7 +1,8 @@
 import './list-item.scss'
-import { Button, Card, Chip, Link, Typography } from "@mui/material";
+import { Button, Card, Chip, Typography } from "@mui/material";
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Link } from 'react-router-dom';
 
 const ListItem = ({data}) => {
     return (
@@ -28,7 +29,7 @@ const ListItem = ({data}) => {
             </div>
             <div className='btn-section'>
                 <a className='apply-btn' href={data.applyUrl}  target='_blank'>Apply</a>
-                <Link href="/k" className='view-link'>
+                <Link to={`job/${data.id}`} className='view-link'>
                     View
                 </Link>
             </div>

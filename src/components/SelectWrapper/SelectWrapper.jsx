@@ -25,7 +25,7 @@ const SelectWrapper = ({label, value, setValue, api}) => {
     };
 
     return (
-        <FormControl fullWidth>
+        <FormControl style={{ width: '33%', backgroundColor: 'white' }}>
             <InputLabel id={`${label}-select-label`}>{label}</InputLabel>
             <Select
                 value={value}
@@ -36,7 +36,7 @@ const SelectWrapper = ({label, value, setValue, api}) => {
             >
                 {
                     filtersList.map(item => (
-                        <MenuItem value={item.id}>{item.title}</MenuItem>
+                        <MenuItem value={item.id} key={item.id}>{item.title}</MenuItem>
                     ))
                 }
             </Select>

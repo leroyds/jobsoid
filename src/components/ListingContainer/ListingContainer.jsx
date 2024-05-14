@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { API, BASE_URL } from "../../constants/apis";
 import ListItem from "../ListItem/ListItem";
 import DepartmentListitem from "../DepartmentListItem/DepartmentListitem";
-import { Container, FormControl, IconButton, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Container, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SelectWrapper from '../SelectWrapper/SelectWrapper';
+import { getFilterParameters } from '../../utils/utils';
 
 function ListingContainer() {
     const [jobsList, setJobsList] = useState([]);
+    const [jobsCount, setJobsCount] = useState(0);
+
+    const [search, setSearch] = useState('');
     const [department, setDepartment] = useState('');
     const [location, setLocation] = useState('');
     const [functionValue, setFunctionValue] = useState();
@@ -19,14 +23,21 @@ function ListingContainer() {
         }
     },[]);
 
+    useEffect(() => {
+        if(department || location || functionValue) {
+            fetchData();
+        }
+    }, [department, location, functionValue])
+
     const fetchData = function () {
-        fetch(`${BASE_URL}${API.LISTING.GET_JOBS}`)
+        fetch(`${BASE_URL}${API.LISTING.GET_JOBS}${getFilterParameters(department, location, functionValue, search)}`)
         .then(response => {
             localStorage.setItem('jobsListing', response)
             return response.json();
         })
         .then(data => {
-            const dataObj = {}
+            const dataObj = {};
+            setJobsCount(data.length);
             if(data) {
                 data.map(job => {
                     if(dataObj[job.department.id]) {
@@ -40,52 +51,64 @@ function ListingContainer() {
         })
     }
 
-    
+    const onSearch = () => {
+        fetchData();
+    }
 
     return (
         <Container  className="listing-container">
-            <TextField
-                className='listing-container__search'
-                label="Search for job"
-                variant="outlined"
-                // value={searchText}
-                // onChange={handleChange}
-                // onKeyPress={handleKeyPress}
-                InputProps={{
-                    endAdornment: (
-                        <IconButton onClick={''}>
-                            <SearchIcon />
-                        </IconButton>
-                    ),
-                }}
-            />
-            <div>
-                <SelectWrapper
-                    label='Department'
-                    value={department}
-                    setValue={setDepartment}
-                    api={API.LISTING.GET_DEPARTMENTS}
+            <div className='listing-container__filters'>
+                <TextField
+                    className='listing-container__search'
+                    label="Search for job"
+                    variant="outlined"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyPress={(e) => {
+                        if(e.key==='Enter') onSearch()
+                    }}
+                    InputProps={{
+                        endAdornment: (
+                            <IconButton onClick={onSearch}>
+                                <SearchIcon />
+                            </IconButton>
+                        ),
+                    }}
+                    style={{backgroundColor: 'white'}}
                 />
-                <SelectWrapper
-                    label='Location'
-                    value={location}
-                    setValue={setLocation}
-                    api={API.LISTING.GET_LOCATIONS}
-                />
-                <SelectWrapper
-                    label='Function'
-                    value={functionValue}
-                    setValue={setFunctionValue}
-                    api={API.LISTING.GET_FUNCTIONS}
-                />
+                <div className='listing-container__filters__select-container'>
+                    <SelectWrapper
+                        label='Department'
+                        value={department}
+                        setValue={setDepartment}
+                        api={API.LISTING.GET_DEPARTMENTS}
+                    />
+                    <SelectWrapper
+                        label='Location'
+                        value={location}
+                        setValue={setLocation}
+                        api={API.LISTING.GET_LOCATIONS}
+                    />
+                    <SelectWrapper
+                        label='Function'
+                        value={functionValue}
+                        setValue={setFunctionValue}
+                        api={API.LISTING.GET_FUNCTIONS}
+                    />
+                </div>
             </div>
             
 
             <div className="listing-container__listing">
                 {
-                    Object.keys(jobsList).map(key => {
-                        return <DepartmentListitem key={key} data={jobsList[key]}/>
-                    })
+                    jobsCount > 0 ? 
+                        Object.keys(jobsList).map(key => {
+                            return <DepartmentListitem key={key} data={jobsList[key]}/>
+                        })
+                        :
+                        <Typography variant='h6'>
+                            No Results Found
+                        </Typography>
                 }
             </div>
         </Container>

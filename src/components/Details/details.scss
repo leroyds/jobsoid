@@ -1,0 +1,15 @@
+.details{
+
+    &__bottom{
+        display: flex;
+    }
+
+    &__description{
+        text-align: left;
+        width: calc(70% - 12px);
+    }
+
+    &__other-jobs{
+        display: flex;
+    }
+}

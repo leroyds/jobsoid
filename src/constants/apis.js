@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://teknorix.jobsoid.com/';
+export const BASE_URL = 'https://teknorix.jobsoid.com';
 
 export const API = {
     LISTING: {

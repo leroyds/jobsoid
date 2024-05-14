@@ -1,6 +1,19 @@
 .listing-container{
     padding: 40px 0;
 
+    &__filters {
+        display: flex;
+        flex-direction: column;
+        background-color: #F0F0F0;
+        padding: 40px;
+
+        &__select-container{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    }
+
     &__search{
         width: 100%;
     }
