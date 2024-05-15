@@ -1,9 +1,15 @@
 .filter-label{
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 10px;
     padding: 20px;
     border-radius: 50px;
     color: white;
     background-color: blueviolet;
+
+    & > span{
+        display: flex;
+        cursor: pointer;
+    }
 }
