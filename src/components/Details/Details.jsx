@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { API, BASE_URL } from '../../constants/apis';
 import { Container, Typography } from '@mui/material';
 import JobOpenings from '../DetailsPageComponents/JobOpenings';
+import JobMetaDeta from '../common/JobMetaData/JobMetaData';
 
 const Details = () => {
     const { id } = useParams();
@@ -28,14 +29,17 @@ const Details = () => {
             {
                 details ?
                     <Container>
-                        <div>
-                            <Typography variant='h6'>
+                        <div className='details__header'>
+                            <Typography variant='h6' align='left' fontWeight={600}>
                                 {`${details.department.title} Department at ${details.company} ${details.location.title}`}
                             </Typography>
-                            <Typography variant='h3'>
-                                {details.title}
-                            </Typography>
-                            meta tag
+                            <JobMetaDeta
+                                data={details}
+                                jobTitleTextVariant={'h3'}
+                                metaTextVariant='h6'
+                                className='details__job-meta-data'
+                            />
+                            <a className='details__apply-btn' href={details.applyUrl}  target='_blank'>Apply</a>
                         </div>
                         <div className='details__bottom'>
                             <div className='details__description' dangerouslySetInnerHTML={{__html: details.description}}>

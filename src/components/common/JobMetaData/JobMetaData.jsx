@@ -4,10 +4,10 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from 'react-router-dom';
 
-const JobMetaDeta = ({data, jobTitleTextVariant='h6', metaTextVariant='subtitle2'}) => {
+const JobMetaDeta = ({data, jobTitleTextVariant='h6', metaTextVariant='subtitle2', className=''}) => {
     return (
         <Link to={`/job/${data.id}`} className='job-meta-data__link' reloadDocument>
-            <div className="job-meta-data">
+            <div className={`job-meta-data ${className}`}>
                 <Typography variant={jobTitleTextVariant}>
                     {data.title}
                 </Typography>
@@ -21,7 +21,7 @@ const JobMetaDeta = ({data, jobTitleTextVariant='h6', metaTextVariant='subtitle2
                     <span>
                         <LocationOnIcon />
                         <Typography variant={metaTextVariant}>
-                            {data.location.city}
+                            {data.location.title}
                         </Typography>
                     </span>
                     <Chip label={data.type} />
