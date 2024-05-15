@@ -35,7 +35,6 @@ const SelectWrapper = ({ label, value, setValue, api, setFilters, filters }) => 
     }
 
     const handleChange = (event) => {
-        debugger
         const value = event.target.value
         setValue(value);
         const filter = { ...filters };

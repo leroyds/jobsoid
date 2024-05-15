@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { API, BASE_URL } from "../../constants/apis";
 import ListItem from "../ListItem/ListItem";
 import DepartmentListitem from "../DepartmentListItem/DepartmentListitem";
-import { Container, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Button, Container, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SelectWrapper from '../SelectWrapper/SelectWrapper';
 import { getFilterParameters } from '../../utils/utils';
@@ -18,18 +18,15 @@ function ListingContainer() {
     const [department, setDepartment] = useState('');
     const [location, setLocation] = useState('');
     const [functionValue, setFunctionValue] = useState('');
+    const [isSearchActive, setIsSearchActive] = useState('');
 
     useEffect(() => {
         fetchData();
-        if(!localStorage.getItem('jobsListing')){
-        }
     },[]);
 
     useEffect(() => {
         fetchData();
-        if(department || location || functionValue) {
-        }
-    }, [department, location, functionValue])
+    }, [department, location, functionValue, isSearchActive, isSearchActive])
 
     const fetchData = function () {
         fetch(`${BASE_URL}${API.LISTING.GET_JOBS}${getFilterParameters(department, location, functionValue, search)}`)
@@ -54,11 +51,10 @@ function ListingContainer() {
     }
 
     const onSearch = () => {
-        fetchData();
+        setIsSearchActive(true);
     }
 
     const clearFilter = (label) => {
-        debugger
         if(label === 'Department') {
             setDepartment('')
         }
@@ -68,6 +64,18 @@ function ListingContainer() {
         if(label==='Function') {
             setFunctionValue('')
         }
+        if(label==='search'){
+            setSearch('');
+            setIsSearchActive(false);
+        }
+    }
+
+    const clearAll = () => {
+        setDepartment('');
+        setLocation('');
+        setFunctionValue('');
+        setSearch('');
+        setIsSearchActive(false);
     }
 
     return (
@@ -119,28 +127,43 @@ function ListingContainer() {
                 </div>
             </div>
 
-            <div className='listing-container__filters box'>
-                <FilterLabel
-                    filterCheckOn={department}
-                    filters={filters}
-                    label={'Department'}
-                    clearFilter={clearFilter}
-                />
+            {
+                (isSearchActive || department || location || functionValue) &&
+                <div className='listing-container__filters box'>
+                    <div>
+                        <FilterLabel
+                            filterCheckOn={department}
+                            filters={filters}
+                            label={'Department'}
+                            clearFilter={clearFilter}
+                        />
 
-                <FilterLabel
-                    filterCheckOn={location}
-                    filters={filters}
-                    label={'Location'}
-                    clearFilter={clearFilter}
-                />
+                        <FilterLabel
+                            filterCheckOn={location}
+                            filters={filters}
+                            label={'Location'}
+                            clearFilter={clearFilter}
+                        />
 
-                <FilterLabel
-                    filterCheckOn={functionValue}
-                    filters={filters}
-                    label={'Function'}
-                    clearFilter={clearFilter}
-                />
-            </div>
+                        <FilterLabel
+                            filterCheckOn={functionValue}
+                            filters={filters}
+                            label={'Function'}
+                            clearFilter={clearFilter}
+                        />
+
+                        <FilterLabel
+                            isSearch={true}
+                            filterCheckOn={isSearchActive}
+                            search={search}
+                            clearFilter={clearFilter}
+                        />
+                    </div>
+                    <Button onClick={clearAll}>
+                        clear All
+                    </Button>
+                </div>
+            }
             
 
             <div className="listing-container__listing">
