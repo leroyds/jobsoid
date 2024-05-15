@@ -7,15 +7,17 @@ import { Container, FormControl, IconButton, InputLabel, MenuItem, Select, TextF
 import SearchIcon from '@mui/icons-material/Search';
 import SelectWrapper from '../SelectWrapper/SelectWrapper';
 import { getFilterParameters } from '../../utils/utils';
+import FilterLabel from '../FilterLabel/FilterLabel';
 
 function ListingContainer() {
     const [jobsList, setJobsList] = useState([]);
     const [jobsCount, setJobsCount] = useState(0);
+    const [filters, setFilters] = useState();
 
     const [search, setSearch] = useState('');
     const [department, setDepartment] = useState('');
     const [location, setLocation] = useState('');
-    const [functionValue, setFunctionValue] = useState();
+    const [functionValue, setFunctionValue] = useState('');
 
     useEffect(() => {
         fetchData();
@@ -24,8 +26,8 @@ function ListingContainer() {
     },[]);
 
     useEffect(() => {
+        fetchData();
         if(department || location || functionValue) {
-            fetchData();
         }
     }, [department, location, functionValue])
 
@@ -55,6 +57,19 @@ function ListingContainer() {
         fetchData();
     }
 
+    const clearFilter = (label) => {
+        debugger
+        if(label === 'Department') {
+            setDepartment('')
+        }
+        if(label==='Location') {
+            setLocation('')
+        }
+        if(label==='Function') {
+            setFunctionValue('')
+        }
+    }
+
     return (
         <Container  className="listing-container">
             <div className='listing-container__filters'>
@@ -82,20 +97,49 @@ function ListingContainer() {
                         value={department}
                         setValue={setDepartment}
                         api={API.LISTING.GET_DEPARTMENTS}
+                        filters={filters}
+                        setFilters={setFilters}
                     />
                     <SelectWrapper
                         label='Location'
                         value={location}
                         setValue={setLocation}
                         api={API.LISTING.GET_LOCATIONS}
+                        filters={filters}
+                        setFilters={setFilters}
                     />
                     <SelectWrapper
                         label='Function'
                         value={functionValue}
                         setValue={setFunctionValue}
                         api={API.LISTING.GET_FUNCTIONS}
+                        filters={filters}
+                        setFilters={setFilters}
                     />
                 </div>
+            </div>
+
+            <div className='listing-container__filters box'>
+                <FilterLabel
+                    filterCheckOn={department}
+                    filters={filters}
+                    label={'Department'}
+                    clearFilter={clearFilter}
+                />
+
+                <FilterLabel
+                    filterCheckOn={location}
+                    filters={filters}
+                    label={'Location'}
+                    clearFilter={clearFilter}
+                />
+
+                <FilterLabel
+                    filterCheckOn={functionValue}
+                    filters={filters}
+                    label={'Function'}
+                    clearFilter={clearFilter}
+                />
             </div>
             
 

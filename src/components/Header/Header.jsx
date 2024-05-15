@@ -1,13 +1,16 @@
 import { AppBar, Container, Toolbar, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
 
-        <AppBar position="static">
+        <AppBar position="fixed" className="header">
             <Container>
                 <Toolbar disableGutters>
                     <Typography variant="caption" component="div" sx={{ flexGrow: 1 }} align="left" fontSize={19}>
-                        Jobsoid
+                        <Link to='/'>
+                            Jobsoid
+                        </Link>
                     </Typography>
                 </Toolbar>
             </Container>

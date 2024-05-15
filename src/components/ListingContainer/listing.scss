@@ -7,6 +7,12 @@
         background-color: #F0F0F0;
         padding: 40px;
 
+        &.box{
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
         &__select-container{
             display: flex;
             justify-content: space-between;
